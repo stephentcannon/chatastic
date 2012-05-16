@@ -1,19 +1,17 @@
+Session.set('room_id', null);
 
-var timeStart = new Date().getTime();
+Meteor.subscribe("allusers");
 
+Meteor.subscribe("chatrooms", function(){
+  if (!Session.get('room_id')) {
+    var room = Rooms.findOne({name: 'Lobby'});
+    console.log('setting default room: ' + room._id);
+    Router.setRoom(room._id);
+  }
+});
+
+// borrowed from Britto tk JonathingKingston
 Chatastic = {};
-
-Chatastic.init = function() {
-  Chatastic.log('init');
-  if(Session.get("currentRoomId") === undefined){
-		defaultRoom = Rooms.findOne();
-		Chatastic.log('default room id: ' + defaultRoom._id);
-		Chatastic.log('default room name: ' + defaultRoom.name);
-		Session.set('currentRoomId', defaultRoom._id);
-		// TODO the below is not working, DOM might not be loaded?
-		$('#'+defaultRoom._id).addClass('active');
-	}
-}
 
 Chatastic.log = function(message) {
   if(console && console.log) {
@@ -21,34 +19,48 @@ Chatastic.log = function(message) {
   }
 }
 
-Meteor.subscribe("allusers");
-Meteor.subscribe("chatrooms", Chatastic.init);
+////////// Tracking selected Room._id in URL //////////
 
+var ChatasticRouter = Backbone.Router.extend({
+  routes: {
+    ":room_id": "main"
+  },
+  main: function (room_id) {
+    console.log('in router main room_id: ' + room_id);
+    Session.set("room_id", room_id);
+  },
+  setRoom: function (room_id) {
+    console.log('in setRoom function room_id: ' + room_id);
+    this.navigate(room_id, true);
+  }
+});
+
+Router = new ChatasticRouter;
+
+Meteor.startup(function () {
+  Backbone.history.start({pushState: true});
+});
 
 Meteor.autosubscribe(function () {
-		Chatastic.log('autosubscribing to: ' + Session.get("currentRoomId"))
-	  Meteor.subscribe("messages", Session.get("currentRoomId"));
-	});
+    Chatastic.log('autosubscribing to: ' + Session.get("room_id"))
+    Meteor.subscribe("messages", Session.get("room_id"));
+});
+
 
 Template.rooms.rooms = function() {
     return Rooms.find();
 };
 
 Template.room.events = {
-	'click .select_room': function() {
-		var old_id = Session.get('currentRoomId');
-		$('#'+old_id).removeClass('active');
-		$('#'+old_id).addClass('select_room');
-		$('#'+this._id).addClass('active');
-		$('#'+this._id).removeClass('select_room');
-		var new_id = this._id;
-		$("#messages_board").fadeToggle(1000, "linear", function(){
-			Session.set('currentRoomId', new_id); //was this._id but didn't bubble through
-			$("#messages_board").fadeToggle(1000, "linear");			
-		});
-		 
+	'mousedown': function(evt) {
+    Router.setRoom(this._id);
   }
 };
+
+Template.room.is_active = function(){
+  console.log('Template.room.is_active : ' + this._id);
+  return Session.equals('room_id', this._id) ? 'active' : '';
+}
 
 Template.messages.messages = function() {
 	return Messages.find();
@@ -119,7 +131,7 @@ Template.entry.events[okcancel_events('#messageBox')] = make_okcancel_handler({
   ok: function(text, event){
     var ts = Date.now();
     Messages.insert({
-			room_id: Session.get('currentRoomId'),
+			room_id: Session.get('room_id'),
       message: text,
       created_by: 'a5043b57-e5f1-49ee-8c2a-4ed2b77c8699', //TODO have to implement userid later
       created: ts
@@ -132,7 +144,7 @@ Template.entry.events[btnclick_events('#messageBtn')] = make_btnclick_handler({
   ok: function(text, event){
     var ts = Date.now();
     Messages.insert({
-			room_id: Session.get('currentRoomId'),
+			room_id: Session.get('room_id'),
       message: text,
       created_by: 'a5043b57-e5f1-49ee-8c2a-4ed2b77c8699', //TODO have to implement userid later
       created: ts

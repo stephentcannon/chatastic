@@ -42,8 +42,8 @@
         </div>
         <div class="nav-collapse">
           <ul class="nav">
-            <li><a href="about">About</a></li>
-            <li><a href="contact">Contact</a></li>
+            <!-- li><a href="about">About</a></li>
+            <li><a href="contact">Contact</a></li-->
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -102,7 +102,7 @@
 </template>
 
 <template name="room">
-  <li class="select_room" id="{{_id}}"><a href="/{{name}}">{{name}}</a></li>
+  <li class="select_room {{is_active}}"><a href="">{{name}}</a></li>
 </template>
 
 <template name="messages">
