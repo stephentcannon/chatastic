@@ -19,104 +19,25 @@
   <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-57-precomposed.png">
 </head>
 <body>
-
-  <div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container-fluid">
-        <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </a>
-        <a class="brand" href="/">Chatastic</a>
-        <div class="btn-group pull-right">
-          <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-            <i class="icon-user"></i>
-            <span class="caret"></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="#">Profile</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Sign Out</a></li>
-          </ul>
-        </div>
-        <div class="nav-collapse">
-          <ul class="nav">
-            <!-- li><a href="about">About</a></li>
-            <li><a href="contact">Contact</a></li-->
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
-  </div>
-
+{{> navbar}}
 	<div class="container-fluid">
     <div class="row-fluid">
-      <div class="span3">
-        <div class="well sidebar-nav">
-          <ul class="nav nav-list">
-            <li class="nav-header">Rooms</li>
-            {{> rooms}}
-          </ul>
-        </div><!--/.well -->
-      </div><!--/span-->
-      <div class="span9">
-        <div class="row-fluid">
-          <div id="messages_board" class="well">
-            {{> messages}}
-          </div><!--/span-->
-        </div><!--/row-->
-      </div><!--/span-->
+      {{> rooms}}
+      {{> messages}}
     </div><!--/row-->
-    <hr>
-    <div class="row-fluid">
-      <div class="span12">
-        <div class="row-fluid">
-          <div class="span12">
-            {{> entry }}
-          </div>
-        </div><!--/row-->
-      </div>
-		</div>
-    <hr>
-    	<footer>
-      		<p>&copy; Chatastic 2012</p>
-    	</footer>
-	</div><!--/.fluid-container-->
+    <div class="row-fluid">    
+      {{> entry }}
+    </div><!--/row-->  
+    <hr>   
+    <footer>
+      {{> footer}}
+    </footer>
+  </div><!--/.fluid-container-->
 </body>
 
-<template name="entry">
-  <form class="form-horizontal">
-      <div class="controls">
-        <div class="input-append">
-          <input class="span10 input" id="messageBox" type="text"><button class="btn" id="messageBtn" type="button"><i class="icon-plus-sign"></i></button>
-        </div>
-      </div>
-  </form>
-</template>
 
-<template name="rooms">
-  {{#each rooms}}
-    {{> room}}
-  {{/each}}
-</template>
 
-<template name="room">
-  <li class="select_room {{is_active}}"><a href="">{{name}}</a></li>
-</template>
 
-<template name="messages">
-	{{#each messages}}
-    {{> message}}
-  {{/each}}
-</template>
 
-<template name="message">
-   <div class="row-fluid">
-      <div>
-        <b>{{get_username created_by}}</b>: {{message}}<br />
-        {{date created}}
-      </div>
-    </div>
-</template>
+
 
