@@ -18,8 +18,6 @@ var make_okcancel_handler = function (options) {
       cancel.call(this, evt);
 
     } else if (evt.type === "keyup" && evt.which === 13 ) {
-      // blur/return/enter = ok/submit if non-empty
-      // removed || evt.type === "focusout" because we don't want to post data on event out
       var value = String(evt.target.value || "");
       if (value)
         ok.call(this, value, evt);
@@ -32,7 +30,6 @@ var make_okcancel_handler = function (options) {
 var btnclick_events = function(selector) {
   return 'click '+selector;
 };
-
 
 var make_btnclick_handler = function(options) {
   var ok = options.ok || function() {};
@@ -59,13 +56,7 @@ Template.entry.events[okcancel_events('#messageBox')] = make_okcancel_handler({
   ok: function(text, event){
     console.log('messageBox event');
     console.log("Session.get('room_id'): " + Session.get('room_id'));
-    var ts = Date.now();
-    Messages.insert({
-      room_id: Session.get('room_id'),
-      message: text,
-      created_by: 'f33efff5-dd17-48de-b5c8-c896ab014b5f', //TODO have to implement userid later
-      created: ts
-    });
+    insertLocalMessage(text);
     event.target.value = "";
   }
 });
@@ -74,13 +65,21 @@ Template.entry.events[btnclick_events('#messageBtn')] = make_btnclick_handler({
   ok: function(text, event){
     console.log('messageBtn event');
     console.log("Session.get('room_id'): " + Session.get('room_id'));
-    var ts = Date.now();
-    Messages.insert({
-      room_id: Session.get('room_id'),
-      message: text,
-      created_by: 'f33efff5-dd17-48de-b5c8-c896ab014b5f', //TODO have to implement userid later
-      created: ts
-    });
+    insertLocalMessage(text);
     $("#messageBox").val('');
   }
 });
+
+function insertLocalMessage(vtext){
+  //TODO change userid to Session.get('user_id') once security is in place
+  console.log('insertLocalMessage');
+  Meteor.call('insertMessage', {
+    room_id: Session.get('room_id'), 
+    user_id: '6ca3d58c-5e13-4fe6-813a-aa40ea5b158c', 
+    text: vtext,
+    });
+}
+
+function insertMessage(){
+  console.log('insertLocalMessage stub');
+}

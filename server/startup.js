@@ -1,6 +1,6 @@
 Meteor.startup(function () {
-  _.each(['Users', 'Rooms', 'Messages'], function(collection) {
-    _.each(['update', 'remove'], function(method) {
+  _.each(['Users', 'Rooms', 'Messages', 'ContactUsFormPosts'], function(collection) {
+    _.each(['insert', 'update', 'remove'], function(method) {
       Meteor.default_server.method_handlers['/' + collection + '/' + method] = function() {};
     });
   });

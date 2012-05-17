@@ -1,8 +1,7 @@
 Template.room.events = {
   'mousedown': function(evt) {
     console.log('Template.room.events');
-    evt.stopPropagation();
-    Router.setRoom(this.name);
+    Chatastic.setSession(this.name);
   }
 };
 
