@@ -1,0 +1,12 @@
+<template name="messages">
+  <div class="span9">
+    <div class="row-fluid">
+      <div id="messages_board" class="well">
+        {{#each messages}}
+          {{> message}}
+        {{/each}}
+      </div><!--/span-->
+      {{> entry }}
+    </div><!--/row-->
+  </div><!--/span-->
+</template>
