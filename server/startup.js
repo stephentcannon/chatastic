@@ -32,52 +32,67 @@ Meteor.startup(function () {
       console.log('Lobby init Message ID: ' + mid1);
 
       rid2 = Rooms.insert({
-        name: 'Meteor', 
+        name: 'Gossip', 
         moderator: adminid,
         created_by: adminid,
         created: ts
       });
-      console.log('Meteor Room ID: ' + rid2);
+      console.log('Gossip Room ID: ' + rid2);
       mid2 = Messages.insert({
         room_id: rid2,
-        message: 'Welcome to the Meteor Room!',
+        message: 'Welcome to the Gossip Room!',
         created_by: adminid,
         created: ts
       });
-      console.log('Meteor init Message ID: ' + mid2);
+      console.log('Gossip init Message ID: ' + mid2);
 
       rid3 = Rooms.insert({
-        name: 'Mongodb', 
+        name: 'Rumors', 
         moderator: adminid,
         created_by: adminid,
         created: ts
       });
-      console.log('Mongodb Room ID: ' + rid3);
+      console.log('Rumors Room ID: ' + rid3);
       mid3 = Messages.insert({
         room_id: rid3,
-        message: 'Welcome to the Mongodb Room!',
+        message: 'Welcome to the Rumors Room!',
         created_by: adminid,
         created: ts
       });
-      console.log('Mongodb init Message ID: ' + mid3);
+      console.log('Rumors init Message ID: ' + mid3);
 
       rid4 = Rooms.insert({
-        name: 'Javascript', 
+        name: 'Innuendo', 
         moderator: adminid,
         created_by: adminid,
         created: ts
       });
-      console.log('Javascript Room ID: ' + rid4);
+      console.log('Innuendo Room ID: ' + rid4);
       mid4 = Messages.insert({
         room_id: rid4,
-        message: 'Welcome to the Javascript Room!',
+        message: 'Welcome to the Innuendo Room!',
         created_by: adminid,
         created: ts
       });
-      console.log('Javascript init Message ID: ' + mid4);
+      console.log('Innuendo init Message ID: ' + mid4);
+
+      rid5 = Rooms.insert({
+        name: 'Jokes', 
+        moderator: adminid,
+        created_by: adminid,
+        created: ts
+      });
+      console.log('Jokes Room ID: ' + rid5);
+      mid5 = Messages.insert({
+        room_id: rid5,
+        message: 'Welcome to the Jokes Room!',
+        created_by: adminid,
+        created: ts
+      });
+      console.log('Jokes init Message ID: ' + mid5);
 
       console.log('Bootstrapping complete.');
-      console.log('Login as admin and password.');
+
    }
 
 });

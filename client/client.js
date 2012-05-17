@@ -5,7 +5,7 @@ if(!Session.get('room_id')) {
 
 Meteor.subscribe("allusers");
 
-// borrowed from Britto tk JonathingKingston
+// borrowed from Britto tk JonathanKingston
 Chatastic = {};
 
 Chatastic.log = function(message) {
@@ -35,7 +35,6 @@ Chatastic.setSession = function(room_name){
     Session.set("room_id", room._id);
     Session.set("room_name", room.name);
   }   
-  $('#messages_board').fadeIn('slow');
 }
 
 Meteor.subscribe("chatrooms", Chatastic.init);
