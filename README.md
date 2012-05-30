@@ -1,6 +1,6 @@
-chatastic
+Chatastic
 ------------
-a multi-room chat application [meteor.com](http://www.meteor.com).
+a multi-room chat application made with [meteor.com](http://www.meteor.com).
 
 View live
 ----------

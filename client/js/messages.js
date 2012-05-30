@@ -3,5 +3,5 @@ Template.messages.messages = function() {
 }
 
 Template.message.get_username = function(id){ 
-  return Users.findOne({_id: id}).name;
+  return Users.findOne({_id: id}).handle;
 }

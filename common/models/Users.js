@@ -1,0 +1,1 @@
+Users = new Meteor.Collection("Users");

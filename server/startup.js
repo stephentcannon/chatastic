@@ -10,7 +10,7 @@ Meteor.startup(function () {
       var ts = Date.now();
       
       adminid = Users.insert({
-        name: 'Administrator',
+        handle: 'Administrator',
         login: 'admin',
         password: 'password'
       });

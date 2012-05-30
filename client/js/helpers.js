@@ -5,7 +5,3 @@ Handlebars.registerHelper('date', function(date) {
   }
   return 'a long long time ago in a galaxy far away';
 });
-
-Handlebars.registerHelper('fader', function(){
-  
-});

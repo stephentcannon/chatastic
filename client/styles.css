@@ -5,3 +5,11 @@ body {
 .sidebar-nav {
 	padding: 9px 0;
 }
+.pull-right .dropdown-menu:after {
+left: auto;
+right: 13px;
+}
+.pull-right .dropdown-menu {
+left: auto;
+right: 0;
+}

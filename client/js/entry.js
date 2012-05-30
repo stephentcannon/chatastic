@@ -75,7 +75,7 @@ function insertLocalMessage(vtext){
   console.log('insertLocalMessage');
   Meteor.call('insertMessage', {
     room_id: Session.get('room_id'), 
-    user_id: '6ca3d58c-5e13-4fe6-813a-aa40ea5b158c', 
+    user_id: '1f7e7e2c-2504-41d3-8a5c-5d47ce313c7b', 
     text: vtext,
     });
 }
